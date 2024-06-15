@@ -44,7 +44,7 @@ export class PocketbaseAdapter implements Adapter {
 				{
 					id: this.sliceId(session.id),
 					userId: this.sliceId(session.userId),
-					expiresAt: session.expiresAt,
+					expiresAt: new Date(session.expiresAt),
 					attributes: session.attributes
 				},
 				{

@@ -40,7 +40,7 @@ const databaseSession: DatabaseSession = {
 	userId: databaseUser.id,
 	id: generateRandomString(15, alphabet('0-9', 'a-z')),
 	// get random date with 0ms
-	expiresAt: convertTime(new Date(Math.floor(Date.now() / 1000) * 1000 + 10_000)),
+	expiresAt: new Date(Math.floor(Date.now() / 1000) * 1000 + 10_000),
 	attributes: {
 		country: 'us'
 	}
@@ -71,7 +71,7 @@ it('deleteSession() deletes session', async () => {
 it('updateSessionExpiration() updates session', async () => {
 	await adapter.setSession(databaseSession);
 	const d = new Date(Math.floor(Date.now() / 1000) * 1000 + 10_000);
-	databaseSession.expiresAt = convertTime(new Date(d.getTime() + 10_000));
+	databaseSession.expiresAt = new Date(d.getTime() + 10_000);
 	await adapter.updateSessionExpiration(databaseSession.id, databaseSession.expiresAt);
 	const result = await adapter.getSessionAndUser(databaseSession.id);
 	expect(result).toEqual([databaseSession, databaseUser]);
@@ -81,7 +81,7 @@ it('deleteExpiredSessions() deletes all expired sessions', async () => {
 	const expiredSession: DatabaseSession = {
 		userId: databaseUser.id,
 		id: generateRandomString(15, alphabet('0-9', 'a-z')),
-		expiresAt: convertTime(new Date(Math.floor(Date.now() / 1000) * 1000 - 10_000)),
+		expiresAt: new Date(Math.floor(Date.now() / 1000) * 1000 - 10_000),
 		attributes: {
 			country: 'us'
 		}
@@ -89,7 +89,12 @@ it('deleteExpiredSessions() deletes all expired sessions', async () => {
 	await adapter.setSession(expiredSession);
 	await adapter.deleteExpiredSessions();
 	const result = await adapter.getUserSessions(databaseSession.userId);
-	expect(result).toEqual([databaseSession]);
+	expect(result).toEqual([
+		{
+			...databaseSession,
+			expiresAt: convertTime(databaseSession.expiresAt)
+		}
+	]);
 });
 
 it('deleteUserSessions() deletes all user sessions', async () => {
