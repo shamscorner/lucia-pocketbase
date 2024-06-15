@@ -6,6 +6,10 @@ Description of the package goes here...
 
 **Step 1:**
 
+Update the necessary env variables in your project for Pocketbase. You can see the `.env.example` file in the root of the project for reference.
+
+**Step 2:**
+
 ```bash
 npm i @shamscorner/lucia-pocketbase
 ```
