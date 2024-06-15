@@ -1,14 +1,10 @@
 # lucia-pocketbase
 
-Description of the package goes here...
+A simple adapter package to help you connect to Pocketbase from your Lucia project.
 
 ## How to use
 
 **Step 1:**
-
-Update the necessary env variables in your project for Pocketbase. You can see the `.env.example` file in the root of the project for reference.
-
-**Step 2:**
 
 ```bash
 npm i @shamscorner/lucia-pocketbase
@@ -16,11 +12,20 @@ npm i @shamscorner/lucia-pocketbase
 
 **Step 2:**
 
-Then import the package in your project.
+Import the adapter in your project.
 
 ```javascript
-import { ... } from '@shamscorner/lucia-pocketbase';
+import { PocketbaseAdapter } from '@shamscorner/lucia-pocketbase';
+
+const adapter = new PocketbaseAdapter(client, {
+	adminUsername: admin.username,
+	adminPassword: admin.password
+});
 ```
+
+**Step 3:**
+
+Follow the official [guide](https://lucia-auth.com/getting-started/) to setup your Lucia project.
 
 ## License
 

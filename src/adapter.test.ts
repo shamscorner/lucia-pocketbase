@@ -2,7 +2,7 @@ import { generateRandomString, alphabet } from 'oslo/crypto';
 import { it, expect } from 'vitest';
 import PocketBase from 'pocketbase';
 import { PocketbaseAdapter } from '$lib/index.js';
-import type { Adapter, DatabaseSession, DatabaseUser } from 'lucia';
+import type { DatabaseSession } from 'lucia';
 
 const client = new PocketBase('http://127.0.0.1:8090');
 
