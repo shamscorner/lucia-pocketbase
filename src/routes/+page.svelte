@@ -1,5 +1,5 @@
-<h1>Package Name</h1>
+<h1>Lucia Pocketbase</h1>
 
 <p>
-	This is a page for the package named <code>package-name</code>.
+	Lucia Pocketbase is a simple, lightweight, and fast database adapter to Lucia authentication. It is made with Sveltekit.
 </p>

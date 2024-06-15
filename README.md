@@ -1,17 +1,21 @@
-# package-name
+# lucia-pocketbase
 
 Description of the package goes here...
 
 ## How to use
 
+**Step 1:**
+
 ```bash
-npm i @shamscorner/package-name
+npm i @shamscorner/lucia-pocketbase
 ```
+
+**Step 2:**
 
 Then import the package in your project.
 
 ```javascript
-import { ... } from '@shamscorner/package-name';
+import { ... } from '@shamscorner/lucia-pocketbase';
 ```
 
 ## License

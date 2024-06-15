@@ -1,5 +1,5 @@
 {
-	"name": "@shamscorner/package-name",
+	"name": "@shamscorner/lucia-pocketbase",
 	"version": "0.0.1",
 	"private": false,
 	"description": "Add a description here...",
@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/shamscorner/package-name.git"
+		"url": "git+https://github.com/shamscorner/lucia-pocketbase.git"
 	},
 	"scripts": {
 		"dev": "vite dev",
