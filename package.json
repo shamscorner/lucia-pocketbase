@@ -22,8 +22,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test": "vitest",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
-		"test:adapter": "tsx tests/pocketbase.ts"
+		"format": "prettier --write ."
 	},
 	"exports": {
 		".": {
@@ -40,7 +39,6 @@
 		"svelte": "^4.0.0"
 	},
 	"devDependencies": {
-		"@lucia-auth/adapter-test": "^5.0.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/package": "^2.0.0",
@@ -52,6 +50,7 @@
 		"globals": "^15.0.0",
 		"js-cookie": "^3.0.5",
 		"lucia": "^3.2.0",
+		"oslo": "^1.2.0",
 		"pocketbase": "^0.21.3",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
