@@ -1,5 +1,5 @@
 import { generateRandomString, alphabet } from 'oslo/crypto';
-import { it, expect } from 'vitest';
+import { it, expect, afterAll } from 'vitest';
 import PocketBase from 'pocketbase';
 import { PocketbaseAdapter } from '$lib/index.js';
 import type { DatabaseSession } from 'lucia';
@@ -32,10 +32,6 @@ await client.collection('users').create({
 	attributes: databaseUser.attributes
 });
 
-function convertTime(date: Date) {
-	return date.toISOString().replace('T', ' ') as unknown as Date;
-}
-
 const databaseSession: DatabaseSession = {
 	userId: databaseUser.id,
 	id: generateRandomString(15, alphabet('0-9', 'a-z')),
@@ -45,6 +41,14 @@ const databaseSession: DatabaseSession = {
 		country: 'us'
 	}
 };
+
+afterAll(async () => {
+	const users = await client.collection('users').getFullList();
+
+	users.forEach((user) => {
+		client.collection('users').delete(user.id);
+	});
+});
 
 it('getSessionAndUser() returns [null, null] on invalid session id', async () => {
 	const result = await adapter.getSessionAndUser(databaseSession.id);
@@ -60,6 +64,15 @@ it('setSession() creates session and getSessionAndUser() returns created session
 	await adapter.setSession(databaseSession);
 	const result = await adapter.getSessionAndUser(databaseSession.id);
 	expect(result).toEqual([databaseSession, databaseUser]);
+});
+
+it('getUserSessions() returns sessions array for user', async () => {
+	const result = await adapter.getUserSessions(databaseSession.userId);
+	expect(result).toEqual([
+		{
+			...databaseSession
+		}
+	]);
 });
 
 it('deleteSession() deletes session', async () => {
@@ -89,12 +102,7 @@ it('deleteExpiredSessions() deletes all expired sessions', async () => {
 	await adapter.setSession(expiredSession);
 	await adapter.deleteExpiredSessions();
 	const result = await adapter.getUserSessions(databaseSession.userId);
-	expect(result).toEqual([
-		{
-			...databaseSession,
-			expiresAt: convertTime(databaseSession.expiresAt)
-		}
-	]);
+	expect(result).toEqual([databaseSession]);
 });
 
 it('deleteUserSessions() deletes all user sessions', async () => {

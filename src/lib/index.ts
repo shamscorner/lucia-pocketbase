@@ -70,7 +70,10 @@ export class PocketbaseAdapter implements Adapter {
 			});
 			if (!sessions) return [];
 
-			return sessions;
+			return sessions.map((session) => ({
+				...session,
+				expiresAt: new Date(session.expiresAt)
+			}));
 		} catch {
 			return [];
 		}
